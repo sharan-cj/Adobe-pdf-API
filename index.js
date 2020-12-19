@@ -5,6 +5,12 @@ const viewerConfig = {
   embedMode: "IN_LINE"
 };
 
+var file;
+
+var storage = firebase.storage();
+var storageRef = storage.ref()
+
+
 /* Wait for Adobe Document Services PDF Embed API to be ready */
 document.addEventListener("adobe_dc_view_sdk.ready", function () {
   /* Initialize the AdobeDC View object */
@@ -17,11 +23,42 @@ document.addEventListener("adobe_dc_view_sdk.ready", function () {
 
   const input = document.getElementById('file-picker');
   input.addEventListener('change', listenForFileUpload());
+  
+  const saveOptions = {
+  autoSaveFrequency: 0,
+  enableFocusPolling: false,
+  showSaveButton: true
+}
+
+adobeDCView.registerCallback(
+  AdobeDC.View.Enum.CallbackType.SAVE_API,
+  function(metadata, content, options) {
+    console.log(content,'content')
+    var buffer = new ArrayBuffer(content)
+    var blob = new Blob(buffer)
+    var newfile = new File(blob, 'newName.pdf');
+    storageRef.child('sampleNew.pdf').put(newfile).then(function(snapshot) {
+      console.log('Uploaded a blob or file!');
+    });
+    // return new Promise((resolve, reject) => {
+    //   resolve({
+    //     code: AdobeDC.View.Enum.ApiResponseCode.SUCCESS,
+    //     data: {
+    //       metaData: <File MetaData>
+    //     }
+    //   });
+    // });
+
+    console.log(metadata, content, options);
+  }, 
+saveOptions);
+
 
   function listenForFileUpload() {
     var fileToRead = document.getElementById("file-picker");
     fileToRead.addEventListener("change", function(event) {
        var files = fileToRead.files;
+       file = files[0];
        if (files.length > 0) {
           var reader = new FileReader();
           reader.onloadend = function(e) {
@@ -36,10 +73,6 @@ document.addEventListener("adobe_dc_view_sdk.ready", function () {
         }
       }, false);
   }
-
-
-
-
 
 
 
@@ -76,3 +109,7 @@ document.addEventListener("adobe_dc_view_sdk.ready", function () {
 //       }
 //   }, viewerConfig);
 });
+
+
+
+

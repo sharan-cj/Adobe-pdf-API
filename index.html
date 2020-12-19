@@ -20,9 +20,41 @@
       type="text/javascript"
       src="https://documentcloud.adobe.com/view-sdk/main.js"
     ></script>
-    <script src="./index.js"></script>
+  
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
     </style>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+
+<script defer src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-storage.js"></script>
+
+// ...
+
+
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyCxvTMJ3tYgXL1RHLGgG_q4PhZ76zEZlgg",
+    authDomain: "testing-2ba10.firebaseapp.com",
+    projectId: "testing-2ba10",
+    storageBucket: "testing-2ba10.appspot.com",
+    messagingSenderId: "70446473259",
+    appId: "1:70446473259:web:d4d058ed649c61cb200a6e",
+    measurementId: "G-5TT2FF029Z"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+<script src="./index.js"></script>
   </body>
 </html>
